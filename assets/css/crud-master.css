@@ -1,0 +1,23 @@
+.img-edit {
+	margin-top: 15px;
+}
+
+.image-edit-item {
+	float: left;
+	position: relative;
+	height: 50px;
+	margin-left: 10px;
+}
+
+.image-edit-item img {
+	height: 100%;
+	width: auto;
+	border-radius: 5px;
+}
+
+.image-edit-item a {
+	position: absolute;
+	top: 0;
+	right: 0;
+	transform: translate(50%, -50%);
+}
