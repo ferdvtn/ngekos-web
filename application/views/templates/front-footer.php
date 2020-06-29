@@ -7,7 +7,7 @@
 					<img class='img-logo' src="<?= BASE_URL('assets/img/NGEKOS-blue.png') ?>" alt="ngekos logo">
 					<div class="badge mybadge p-2 my-2">
 						<p class='mb-0 text-white'>"Mau Sewa Kos ?"<br>
-						Dapatkan info kos murah dan terbaik hanya di Aplikasi Ngekos</p>
+						Dapatkan tempat terbaik hanya di Aplikasi Ngekos</p>
 
 					</div>
 					<br>

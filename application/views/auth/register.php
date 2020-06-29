@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="auth">
-		<form class="register-form rounded-lg shadow-sm" action=<?= BASE_URL('register') ?> method="post">
+		<form class="auth-form rounded-lg shadow-sm" action=<?= BASE_URL('register') ?> method="post">
 			<div class="form-group">
 				<label for="name">Name</label>
 				<input type="text" class="form-input" name="name" placeholder="Name.." value=<?=set_value('name')?>>

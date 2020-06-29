@@ -21,7 +21,7 @@
 
 	@media (max-width: 590px) {
 		.swiper-container {
-			max-width: 380px;
+			max-width: 340px;
 		}
 	}
 
@@ -80,7 +80,7 @@
 			</div>
 			<?php if (!empty($kos->fasilitas)) { ?>
 			<div class="fasilitas">
-				<h4 class='mb-4'>Fasilitas</h4>
+				<h4 class='mb-4 title-primary'>Fasilitas</h4>
 				<div class="row">
 					<?php foreach ($kos->fasilitas as $faskey => $fasval) { ?>
 						<?php if ($faskey != 'id_kos' && ($faskey != 'updated_at' && ($faskey != 'created_at'))) { ?>
@@ -168,6 +168,7 @@
 					marker.bindPopup("<b>Here!</b>").openPopup();
 				</script>
 			</div>
+			<br><br>
 			<?php } ?>
 		</div>
 	</div>
@@ -175,12 +176,6 @@
 		<div class="col-md-8">
 			<div class="disqus">
 				<p class='title-primary'>Komentar</p>
-				<?php
-					// echo '<pre>';
-					// 	var_dump(htmlspecialchars($disqus));
-					// echo '</pre>';
-					// die();
-				?>
 				<?php echo $disqus ?>
 			</div>
 		</div>

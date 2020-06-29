@@ -33,7 +33,7 @@ body {
 	border: 1px solid #eaeaea;
 	color: #eaeaea;
 	border-radius: unset;
-}
+}d
 
 .form-btn-search:hover {
 	background-color: rgba(0, 0, 0, .2);
@@ -341,8 +341,9 @@ body {
 .title-primary {
 	margin: unset;
 	display: inline-block;
-	padding: 5px 10px;
-	font-weight: 400;
+	padding: 7px 15px;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 700;
 	font-size: 15px;
 	background-color: #007bff!important;
 	color: #fff;
@@ -356,8 +357,14 @@ body {
 	width: 100%;
 	text-align: center;
 	border-bottom: 3px solid rgba(0,0,0,.5);
-	line-height: 0.1em;
+	border-top: 3px solid rgba(0,0,0,.5);
 	margin: 10px 0 50px;
+}
+
+@media (min-width: 431px){
+	.rec-kos {
+		line-height: 0.1em;
+	}
 }
 
 .rec-kos span {
@@ -370,6 +377,7 @@ footer {
 	background-image: url('../img/header-2.jpg');
 	background-size: cover;
 	background-attachment: fixed;
+	background-position-y: center;
 	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 }

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="auth">
-	<form class="login-form rounded-lg shadow-sm" action=<?= BASE_URL('login') ?> method="post">
+	<form class="auth-form rounded-lg shadow-sm" action=<?= BASE_URL('login') ?> method="post">
 	<?php if (!empty($this->session->flashdata('flashError'))) { ?>
 		<div class='alert alert-danger'>
 			<?= $this->session->flashdata('flashError'); ?>
