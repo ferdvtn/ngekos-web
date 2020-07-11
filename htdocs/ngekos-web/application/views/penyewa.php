@@ -35,11 +35,11 @@
 					<tr>
 						<td><?= $i ?></td>
 						<td>
-							<a href="<?= BASE_URL('kos?id='.$kos_item->id) ?>"><?= $kos_item->judul ?></a>
+							<a href="<?= BASE_URL('kos/d/'.$kos_item->id) ?>"><?= $kos_item->judul ?></a>
 						</td>
 						<td><?= $kos_item->nama_penyewa ?></td>
 						<td>
-							<a class='btn btn-sm btn-pink delete-kos' href="<?= BASE_URL('home/delete_penyewa?id='.$kos_item->id_tersewa) ?>"><span class="fa fa-trash"></span> delete</a>
+							<a class='btn btn-sm btn-pink delete-kos' href="<?= BASE_URL('main/delete_penyewa?id='.$kos_item->id_tersewa) ?>"><span class="fa fa-trash"></span> delete</a>
 						</td>
 					</tr>
 				<?php $i++; } }?>

@@ -55,10 +55,13 @@ class User extends MY_Controller {
 		$id = $this->input->post('id');
 		$file = $_FILES;
 		$upload = $this->lib_user->change_picture($file, $id);
-		if ($upload) {
+		if ($upload->status == true) {
 			$this->flashMessage('SUCCESS', 'Foto profile telah diganti');
-			redirect(go_back());
+		} else {
+			$this->flashMessage('ERROR', $upload->message);
 		}
+
+		redirect(go_back());
 	}
 
 	/**

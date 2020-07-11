@@ -89,10 +89,10 @@ class Main extends MY_Controller {
 			$this->db->where('id', $result->id);
 			$this->db->delete('tersewa');
 
-			$this->flashMessage('SUCCESS', '<b>Berhasil!</b> Data telah dihapus!');
+			$this->flashMessage('SUCCESS', 'Data telah dihapus!');
             redirect('profile/penyewa');
 		} else {
-			$this->flashMessage('ERROR', '<b>Maaf!</b> Halaman tidak ditemukan!');
+			$this->flashMessage('ERROR', 'Halaman tidak ditemukan!');
             redirect('profile/penyewa');
 		}
 	}

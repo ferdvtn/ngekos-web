@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'mysql',
+	'hostname' => 'mariadb',
 	'username' => 'root',
-	'password' => '123n123',
+	'password' => '123456',
 	'database' => 'ngekos',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

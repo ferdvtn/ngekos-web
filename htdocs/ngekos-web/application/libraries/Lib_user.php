@@ -13,6 +13,10 @@ class Lib_user {
 
 	public function change_picture($file, $id)
 	{
+		$result = new stdClass;
+		$result->status = false;
+		$result->message = '';
+
 		$this->CI->db->select('*');
 		$this->CI->db->from('user');
 		$this->CI->db->where('id', $id);
@@ -32,10 +36,12 @@ class Lib_user {
 			if ($this->CI->upload->do_upload('profile_pict')) {
 				$images_name = $this->CI->upload->data('file_name');
 				$this->CI->user_model->update_pict($images_name, $id);
-				return $images_name;
-			} else return false;
-
+				$result->status = $images_name;
+			} else {
+				$result->message = $this->CI->upload->display_errors();
+			}	
 		}
+		return $result;
 	}
 
 	/**

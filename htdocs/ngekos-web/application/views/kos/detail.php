@@ -246,6 +246,7 @@
 
 	$('.ajukan').click(function(e){
         $('.popup-ajukan').css('display', 'flex');
+		$('html,body').animate({ scrollTop: 0 }, 'slow');
 	});
 
     $('.popup-close').click(function(e){

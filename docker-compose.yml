@@ -1,0 +1,24 @@
+version: '3'
+services:
+  apache-php:
+    build: ./apache-php
+    container_name: rdp-apache
+    hostname: apache
+    ports:
+      - '80:80'
+    volumes:
+      - './htdocs:/var/www/html'
+  mariadb:
+    image: mariadb
+    container_name: rdp-mariadb
+    command: '--default-authentication-plugin=mysql_native_password'
+    volumes:
+      - 'mariadb_volume:/var/lib/mysql'
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - '3306:3306'
+volumes:
+  mariadb_volume:

@@ -123,6 +123,7 @@ body {
 	background-color: #fff;
     border-radius: 5px;
 	position: relative;
+	z-index: 1;
 }
 
 .popup-close{
