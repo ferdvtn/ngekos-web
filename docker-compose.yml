@@ -2,7 +2,7 @@ version: '3'
 services:
   apache-php:
     build: ./apache-php
-    container_name: rdp-apache
+    container_name: ngekos-apache
     hostname: apache
     ports:
       - '80:80'
@@ -10,7 +10,7 @@ services:
       - './htdocs:/var/www/html'
   mariadb:
     image: mariadb
-    container_name: rdp-mariadb
+    container_name: ngekos-mariadb
     command: '--default-authentication-plugin=mysql_native_password'
     volumes:
       - 'mariadb_volume:/var/lib/mysql'

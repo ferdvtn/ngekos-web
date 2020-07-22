@@ -31,10 +31,10 @@ class Pengajuan_model extends MY_Model{
     {
         $this->db->select('pengajuan.*, user.nama as pengaju, user.no_handphone as no_pengaju, kos.judul as nama_kos');
         $this->db->from('pengajuan');
-        $this->db->join('user', 'user.id = pengajuan.id_pengaju');
-        $this->db->join('kos', 'kos.id = pengajuan.id_kos');
-        $this->db->where('pengajuan.id_pemilik', $id);
-        $this->db->or_where('pengajuan.id_pengaju', $id);
+        $this->db->join('user', 'user.id_user = pengajuan.id_user_pengaju');
+        $this->db->join('kos', 'kos.id_kos = pengajuan.id_kos');
+        $this->db->where('pengajuan.id_user_pemilik', $id);
+        $this->db->or_where('pengajuan.id_user_pengaju', $id);
         $this->db->order_by('pengajuan.created_at', 'DESC');
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -47,14 +47,14 @@ class Pengajuan_model extends MY_Model{
         parent::insert($rows);
     }
 
-    public function update($rows)
+    public function update($rows, $keyname)
     {
-        parent::update($rows);
+        parent::update($rows, 'id_pengajuan');
     }
 
-    public function delete($id)
+    public function delete($keyname, $id)
     {
-        parent::delete($id);
+        parent::delete($keyname, $id);
     }
 
     public function is_exists($idrows)

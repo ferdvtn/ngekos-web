@@ -15,7 +15,7 @@ class Main extends MY_Controller {
     public function index()
     {
         // $this->check_auth->is_logged_in();
-        $idUser = $this->session->userdata('id');
+        $idUser = $this->session->userdata('id_user');
         $this->data['kos'] = $this->kos_model->get('', 12);
         $this->data['user'] = $this->user_model->get_by_id($idUser);
 		$this->data['title'] = "Home | Ngekos";
@@ -25,7 +25,7 @@ class Main extends MY_Controller {
 	public function profile()
     {
         $this->check_auth->is_logged_in();
-        $idUser = $this->session->userdata('id');
+        $idUser = $this->session->userdata('id_user');
         $this->data['user'] = $this->user_model->get_by_id($idUser);
         $this->data['kos'] = $this->kos_model->get($idUser);
         $this->data['sisa'] = $this->lib_kos->getTersisa();
@@ -39,7 +39,7 @@ class Main extends MY_Controller {
 	public function penyewa()
 	{
 		$this->check_auth->is_logged_in();
-        $idUser = $this->session->userdata('id');
+        $idUser = $this->session->userdata('id_user');
         $this->data['user'] = $this->user_model->get_by_id($idUser);
         $this->data['kos'] = $this->kos_model->getPenyewa($idUser);
         $this->data['sisa'] = $this->lib_kos->getTersisa();
@@ -53,7 +53,7 @@ class Main extends MY_Controller {
     public function edit()
     {
         $this->check_auth->is_logged_in();
-        $idUser = $this->session->userdata('id');
+        $idUser = $this->session->userdata('id_user');
         $this->data['user'] = $this->user_model->get_by_id($idUser);
         $this->data['kos'] = $this->kos_model->get($idUser);
         $this->data['sisa'] = $this->lib_kos->getTersisa();
@@ -68,26 +68,20 @@ class Main extends MY_Controller {
 	{
 		$input = $this->input->get();
 		$this->db->select('*');
-		$this->db->from('tersewa');
-		$this->db->where('id', $input['id']);
+		$this->db->from('kostersewa');
+		$this->db->where('id_kostersewa', $input['id']);
 		$get = $this->db->get();
 		if ($get->num_rows() > 0) {
 			$result = $get->first_row();
 
 			//delete from table status_pengajuan
-			$this->db->from('status_pengajuan');
-			$this->db->where('id_pengaju', $result->id_penyewa);
+			$this->db->where('id_user_pengaju', $result->id_user);
 			$this->db->where('id_kos', $result->id_kos);
-			$get_sp = $this->db->get();
-			if ($get_sp->num_rows() > 0) {
-				$get_sp = $get_sp->first_row();
-				$this->db->where('id', $get_sp->id);
-				$this->db->delete('status_pengajuan');
-			}
+			$this->db->delete('status_pengajuan');
 
 			// delete from table penyewa
-			$this->db->where('id', $result->id);
-			$this->db->delete('tersewa');
+			$this->db->where('id_kostersewa', $result->id_kostersewa);
+			$this->db->delete('kostersewa');
 
 			$this->flashMessage('SUCCESS', 'Data telah dihapus!');
             redirect('profile/penyewa');
@@ -100,7 +94,7 @@ class Main extends MY_Controller {
     public function tambahKos()
     {
         $this->check_auth->is_logged_in();
-        $idUser = $this->session->userdata('id');
+        $idUser = $this->session->userdata('id_user');
         $this->form_validation->set_rules('judul', 'Title', 'required|min_length[5]|max_length[50]');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|min_length[10]');
         $this->form_validation->set_rules('luas', 'Luas', 'required|max_length[5]|numeric');
@@ -115,14 +109,14 @@ class Main extends MY_Controller {
         } else {
 			$id = guid();
 			$input = $this->input->post();
-			$input['id'] = $id;
+			$input['id_kos'] = $id;
 			unset($input['fasilitas']);
 			$fasilitas = $this->input->post('fasilitas');
 			$fasilitas['id_kos'] = $id;
 			$images = $_FILES['img_kos'];
 			$this->lib_kos->upload($images, $id); // update image dan inset to table
 			$id_insert = $this->kos_model->insert($input);
-			if ($id_insert) {
+			if ($id_insert == true) {
 				$this->kos_model->insertFasilitas($fasilitas);
 			}
 			$this->flashMessage('SUCCESS', 'Berhasil menambah data kos');

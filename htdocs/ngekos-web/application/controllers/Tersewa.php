@@ -23,19 +23,20 @@ class Tersewa extends MY_Controller
         $this->form_validation->set_rules('id_kos', '', 'required');
         $this->form_validation->set_rules('penghuni', '', 'required|numeric');
         if ($this->form_validation->run() != false) {
-			$this->pengajuan_model->delete($input['id']);
+			$this->pengajuan_model->delete('id_pengajuan', $input['id']);
             $sp_input = [
                 'id_pengajuan' => $input['id'],
-                'id_pemilik' => $input['id_pemilik'],
-                'id_pengaju' => $input['id_penyewa'],
+                'id_user_pemilik' => $input['id_pemilik'],
+                'id_user_pengaju' => $input['id_penyewa'],
                 'id_kos' => $input['id_kos'],
-                'status' => $input['status'],
+                'status_pengajuan' => $input['status'],
                 'keterangan' => $input['keterangan']
-            ];
+			];
             $this->status_pengajuan_model->insert($sp_input);
             if ($input['status'] == 1) {
                 $pn_input = [
-                    'id_penyewa' => $input['id_penyewa'],
+                    'id_kostersewa' => guid(),
+                    'id_user' => $input['id_penyewa'],
                     'id_kos' => $input['id_kos'],
                     'penghuni' => $input['penghuni'],
                     'keterangan' => $input['keterangan']

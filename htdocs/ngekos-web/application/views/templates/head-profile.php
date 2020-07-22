@@ -40,7 +40,7 @@
 		<?php } ?>
 		<div class="profile-head row mt-5">
 			<?= form_open_multipart(BASE_URL('user/cp'), ['id'=>'form_picture']) ?>
-				<input type="hidden" name="id" value="<?= $user['id'] ?>">
+				<input type="hidden" name="id" value="<?= $user['id_user'] ?>">
 				<input type="file" name="profile_pict" id="profile_pict_hidden" style="display:none">
 			<?= form_close() ?>
 			<div id="profile_pic">

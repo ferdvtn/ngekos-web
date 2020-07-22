@@ -7,7 +7,7 @@
 				<div class="status-item">
 				<?php
 				$border_bottom = 'border-bottom pb-1';
-				if ($s_item->status == 1) {
+				if ($s_item->status_pengajuan == 1) {
 					$title = 'Approve';
 					$class = 'bg-primary text-white';
 				} else {
@@ -19,7 +19,7 @@
 				?>
 					<a class="<?= $class ?> notif dropdown-item clearfix px-3 mb-1 shadow" style="border-radius: 10px; border-top-right-radius: 0">
 						<h4 class="text-right<?= $border_bottom ?>"><?= $title ?></h4>
-						<img class='float-left mr-2' style="height:20px" src=<?= base_url("assets/img/user/$s_item->id_pemilik/" . $this->lib_user->gpp($s_item->id_pemilik)) ?> alt="user picture">
+						<img class='float-left mr-2' style="height:20px" src=<?= base_url("assets/img/user/$s_item->id_user_pemilik/" . $this->lib_user->gpp($s_item->id_user_pemilik)) ?> alt="user picture">
 						<div>
 							<p class='m-0 overflow-hidden'><b><?= ucfirst($s_item->pemilik) ?></b> | <?= $s_item->nama_kos ?></p>
 							<small>"<?php
@@ -44,7 +44,7 @@
 		<?php if (!empty($kos_terbaru)) { ?>
 			<?php foreach ($kos_terbaru as $kos) { ?>
 				<div class="col-md-3 col-6 kos-item mb-5 p-1">
-					<a class="text-decoration-none" style="color: rgba(0,0,0,.65);" href="<?= BASE_URL("/kos/d/$kos->id") ?>">
+					<a class="text-decoration-none" style="color: rgba(0,0,0,.65);" href="<?= BASE_URL("/kos/d/$kos->id_kos") ?>">
 						<div class="bg-white overflow-hidden p-2">
 							<div>
 							<?php if (!empty($kos->title)) { ?>

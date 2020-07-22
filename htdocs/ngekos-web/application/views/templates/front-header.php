@@ -43,7 +43,7 @@
 						<a class="nav-link nav-a" href="<?= BASE_URL('/') ?>">Home</a>
 					</li>
 					<!-- NOTIFICATIONS -->
-					<?php if ($this->session->has_userdata('id')) { ?>
+					<?php if ($this->session->has_userdata('id_user')) { ?>
 					<li class="nav-item dropdown">
 						<a class="nav-link nav-a dropdown-toggle" href="#" id="notifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Notification
@@ -58,11 +58,11 @@
 							$ntf_status = '';
 							$ntf_title = '';
 							$ntf_class = 'bg-primary text-white';
-							$ntf_info = 'To : <b>' . $this->user_model->get_by_id($ntf->id_pemilik)['nama']. '</b>';
+							$ntf_info = 'To : <b>' . $this->user_model->get_by_id($ntf->id_user_pemilik)['nama']. '</b>';
 							$ntf->title = "Approval tersampaikan";
 
 							// jika ada request pengajuan
-							if ($ntf->id_pemilik == $this->session->userdata('id')) {
+							if ($ntf->id_user_pemilik == $this->session->userdata('id_user')) {
 								$ntf_title = "<h4 class='text-right text-primary border-bottom border-primary pb-1'>New Approval</h4>";
 								$ntf_class = 'bg-light border border-primary';
 								$ntf_info = 'From : <b>'.$ntf->pengaju . '</b>';
@@ -79,7 +79,7 @@
 							}
 							?>
 
-							<?php if ($ntf->id_pemilik == $this->session->userdata('id')) {
+							<?php if ($ntf->id_user_pemilik == $this->session->userdata('id_user')) {
 								if (isset($ntf->status) AND $ntf->status == 'disetujui' || $ntf->status == 'ditolak') { ?>
 								<a onclick='editNotif(<?= json_encode($ntf) ?>)' class="<?=$ntf_class?> notif dropdown-item clearfix px-3 mb-1 shadow" style="border-radius: 10px; border-top-right-radius: 0"> <?php
 								} else { ?>
@@ -119,7 +119,7 @@
 					</li>
 					<?php } ?>
 					<!-- STATUS PENGAJUAN -->
-					<?php if ($this->session->has_userdata('id')) { ?>
+					<?php if ($this->session->has_userdata('id_user')) { ?>
 					<li class="nav-item dropdown">
 						<a class="nav-link nav-a dropdown-toggle" href="#" id="notifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Status
@@ -132,7 +132,7 @@
 						if (isset($status_pengajuan) && count($status_pengajuan) > 0) {
 							foreach ($status_pengajuan as $idx => $status) {
 							$border_bottom = 'border-bottom pb-1';
-							if ($status->status == 1) {
+							if ($status->status_pengajuan == 1) {
 								$title = 'Approve';
 								$class = 'bg-primary text-white';
 							} else {
@@ -176,7 +176,7 @@
 							<img style="height:20px" src=<?= $user_pic ?> alt="user picture">
 						</a>
 						<div class="dropdown-menu dropdown-menu-right border-0 bg-transparent" aria-labelledby="navbarDropdown">
-						<?php if ($this->session->has_userdata('id')) { ?>
+						<?php if ($this->session->has_userdata('id_user')) { ?>
 							<a class="dropdown-item px-3 mb-1 bg-primary text-white shadow" style="border-radius: 10px; border-top-right-radius: 0"" href="<?= BASE_URL('/profile') ?>"><?= $user['nama'] ?></a>
 							<a class="dropdown-item px-3 mb-2 bg-primary text-white shadow" style="border-radius: 10px; border-top-right-radius: 0"" href=<?= BASE_URL('auth/change_password') ?>>Change Password</a>
 							<a class="bg-danger text-white dropdown-item px-3 mb-1 bg-primary text-white shadow" style="border-radius: 10px; border-top-right-radius: 0"" href="<?= BASE_URL('auth/logout') ?>">Logout</a>

@@ -24,22 +24,22 @@ class User_model extends CI_Model{
 
     public function get_by_id($id)
     {
-        $query = $this->db->get_where('user', ['id' => $id]);
+        $query = $this->db->get_where('user', ['id_user' => $id]);
         return $query->row_array();
     }
 
     public function update_password($rows)
     {
-        $id = $this->session->userdata('id');
+        $id = $this->session->userdata('id_user');
         $currentPassword = $rows['current_password'];
         $newPassword = password_hash($rows['new_password1'], PASSWORD_DEFAULT);
-        $oldPassword = $this->db->get_where('user', ['id' => $id])->row_array()['password'];
+        $oldPassword = $this->db->get_where('user', ['id_user' => $id])->row_array()['password'];
         if (password_verify($currentPassword, $oldPassword))
         {
             $data = [
                 'password' => $newPassword,
             ];
-            $this->db->update('user', $data, ['id' => $id]); # (table, data, where)
+            $this->db->update('user', $data, ['id_user' => $id]); # (table, data, where)
             return TRUE;
         }
         else
@@ -56,8 +56,8 @@ class User_model extends CI_Model{
             'no_handphone' => $data['no_handphone'],
             'alamat' => $data['alamat'],
         ];
-        $idUser = $this->session->userdata('id');
-        $this->db->where('id', $idUser);
+        $idUser = $this->session->userdata('id_user');
+        $this->db->where('id_user', $idUser);
         $this->db->update('user', $newData);
         $this->session->set_userdata(['email' => $data['email']]);
 	}
@@ -65,7 +65,7 @@ class User_model extends CI_Model{
 	public function update_pict($namefile, $id)
 	{
 		$this->db->set('user_picture', $namefile);
-		$this->db->where('id', $id);
+		$this->db->where('id_user', $id);
 		$this->db->update('user');
 		return $id;
 	}

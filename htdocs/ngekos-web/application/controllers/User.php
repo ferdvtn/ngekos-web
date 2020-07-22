@@ -14,7 +14,7 @@ class User extends MY_Controller {
     public function edit()
     {
         $this->check_auth->is_logged_in();
-        $idUser = $this->session->userdata('id');
+        $idUser = $this->session->userdata('id_user');
         $this->data['user'] = $this->user_model->get_by_id($idUser);
         $is_unique = ($this->input->post('email') != $this->data['user']['email']) ? '|is_unique[user.email]' : '' ;
         $this->form_validation->set_rules('nama', 'nama', 'trim|required|min_length[3]|max_length[50]');
@@ -29,7 +29,7 @@ class User extends MY_Controller {
                 'no_handphone' => $this->input->post('no_handphone'),
                 'alamat' => $this->input->post('alamat'),
             ];
-            $this->db->where('id', $idUser);
+            $this->db->where('id_user', $idUser);
             $this->db->update('user', $newData);
             $this->flashMessage('SUCCESS', 'Berhasil memperbarui profile');
             redirect('profile');
@@ -72,13 +72,13 @@ class User extends MY_Controller {
 	public function s()
 	{
 		$this->check_auth->is_logged_in();
-		$user_id = $this->session->userdata('id');
+		$user_id = $this->session->userdata('id_user');
 		$this->data['user'] = $this->user_model->get_by_id($user_id);
 		$this->data['status'] = $this->status_pengajuan_model->getByUser($user_id);
 		$this->data['title'] = 'Status';
 		$this->data['kos_terbaru'] = $this->db->select('kos.*, user.nama as pemilik, user.no_handphone, user.alamat as alamat_pemilik')
 									->from('kos')->order_by('created_at', 'DESC')->limit(4)
-									->join('user', 'user.id = kos.id_pemilik')
+									->join('user', 'user.id_user = kos.id_user')
 									->get()->result();
 		parent::frontDisplay('list-status');
 	}
@@ -92,12 +92,12 @@ class User extends MY_Controller {
 	public function n()
 	{
 		$this->check_auth->is_logged_in();
-		$user_id = $this->session->userdata('id');
+		$user_id = $this->session->userdata('id_user');
 		$this->data['user'] = $this->user_model->get_by_id($user_id);
 		$this->data['title'] = 'Notifications';
 		$this->data['kos_terbaru'] = $this->db->select('kos.*, user.nama as pemilik, user.no_handphone, user.alamat as alamat_pemilik')
 									->from('kos')->order_by('created_at', 'DESC')->limit(4)
-									->join('user', 'user.id = kos.id_pemilik')
+									->join('user', 'user.id_user = kos.id_user')
 									->get()->result();
 		parent::frontDisplay('list-notification');
 	}

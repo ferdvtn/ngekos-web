@@ -25,11 +25,11 @@
 		<?php if (!empty($kos)) { ?>
 			<?php foreach ($kos as $kos) { ?>
 				<div class="col-md-3 col-6 kos-item mb-5 p-1">
-					<a class="text-decoration-none" style="color: rgba(0,0,0,.65);" href="<?= BASE_URL("/kos/d/$kos->id") ?>">
+					<a class="text-decoration-none" style="color: rgba(0,0,0,.65);" href="<?= BASE_URL("/kos/d/$kos->id_kos") ?>">
 						<div class="bg-white overflow-hidden p-2">
 							<div>
 							<?php if (!empty($kos->title)) { ?>
-								<img  src="<?= BASE_URL("assets/img/kos/$kos->id/") . $kos->title[0] ?>" alt="tampilan rumah" class='thumbnail'>
+								<img  src="<?= BASE_URL("assets/img/kos/$kos->id_kos/") . $kos->title[0] ?>" alt="tampilan rumah" class='thumbnail'>
 							<?php } else {?>
 								<img  src="<?= BASE_URL('assets/img/home-default.jpg') ?>" alt="tampilan rumah" class='thumbnail'>
 							<?php } ?>

@@ -19,7 +19,7 @@ class Lib_user {
 
 		$this->CI->db->select('*');
 		$this->CI->db->from('user');
-		$this->CI->db->where('id', $id);
+		$this->CI->db->where('id_user', $id);
 		$get_user = $this->CI->db->get();
 		if ($get_user->num_rows() > 0) {
 			$path = './assets/img/user/'.$id;
@@ -39,7 +39,7 @@ class Lib_user {
 				$result->status = $images_name;
 			} else {
 				$result->message = $this->CI->upload->display_errors();
-			}	
+			}
 		}
 		return $result;
 	}
@@ -55,7 +55,7 @@ class Lib_user {
 	{
 		$this->CI->db->select('user_picture');
 		$this->CI->db->from('user');
-		$this->CI->db->where('id', $user_id);
+		$this->CI->db->where('id_user', $user_id);
 		$result = $this->CI->db->get();
 		if ($result->num_rows() > 0) {
 			$result = $result->first_row();

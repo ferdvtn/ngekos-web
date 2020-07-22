@@ -29,7 +29,7 @@ class MY_Controller extends CI_Controller
 
     public function get_pengajuan()
     {
-        $id_user = !empty($this->session->userdata('id')) ? $this->session->userdata('id') : '';
+        $id_user = !empty($this->session->userdata('id_user')) ? $this->session->userdata('id_user') : '';
         $this->load->library('lib_pengajuan');
         $my_notif = $this->lib_pengajuan->getByUser($id_user);
         return $my_notif;
@@ -37,7 +37,7 @@ class MY_Controller extends CI_Controller
 
     public function status_pengajuan()
     {
-        $id_user = !empty($this->session->userdata('id')) ? $this->session->userdata('id') : '';
+        $id_user = !empty($this->session->userdata('id_user')) ? $this->session->userdata('id_user') : '';
         $this->load->library('lib_status_pengajuan');
         $status = $this->lib_status_pengajuan->getByUser($id_user);
         return $status;
@@ -55,7 +55,7 @@ class MY_Controller extends CI_Controller
 		$this->data['status_pengajuan'] = $this->status_pengajuan();
 		$this->data['user_pic'] = BASE_URL("assets/img/user-default.png");
 		if (!empty($this->data['user']['user_picture'])) {
-			$this->data['user_pic'] = BASE_URL() . "assets/img/user/" . $this->data['user']['id'] . "/" . $this->data['user']['user_picture'];
+			$this->data['user_pic'] = BASE_URL() . "assets/img/user/" . $this->data['user']['id_user'] . "/" . $this->data['user']['user_picture'];
 		}
 
         $this->load->view('templates/front-header', $this->data);

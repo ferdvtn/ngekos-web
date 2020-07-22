@@ -24,7 +24,7 @@ class Search extends MY_Controller {
             redirect(base_url('/'));
         }
 
-        $idUser = $this->session->userdata('id');
+        $idUser = $this->session->userdata('id_user');
         $this->data['user'] = $this->user_model->get_by_id($idUser);
         $this->data['kos'] = $this->kos_model->search($q, $adr);
         $this->data['title'] = "Home | Ngekos";

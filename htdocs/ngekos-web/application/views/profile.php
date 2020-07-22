@@ -38,14 +38,14 @@
 					<tr>
 						<td><?= $i ?></td>
 						<td>
-							<a href="<?= BASE_URL('kos/d/'.$kos_item->id) ?>"><?= $kos_item->judul ?></a>
+							<a href="<?= BASE_URL('kos/d/'.$kos_item->id_kos) ?>"><?= $kos_item->judul ?></a>
 						</td>
 						<td><?= $kos_item->luas ?> m2</td>
 						<td><?= $kos_item->harga ?> / bulan</td>
-						<td><?= $this->lib_kos->hitungsisa($kos_item->id, $kos_item->pintu) ?></td>
+						<td><?= $this->lib_kos->hitungsisa($kos_item->id_kos, $kos_item->pintu) ?></td>
 						<td>
-							<a class='btn btn-sm btn-success' href="<?= BASE_URL('kos/update?id='.$kos_item->id) ?>"><span class="fa fa-pen"></span> edit</a>
-							<a class='btn btn-sm btn-pink delete-kos' href="<?= BASE_URL('kos/delete?id='.$kos_item->id) ?>"><span class="fa fa-trash"></span> delete</a>
+							<a class='btn btn-sm btn-success' href="<?= BASE_URL('kos/update?id='.$kos_item->id_kos) ?>"><span class="fa fa-pen"></span> edit</a>
+							<a class='btn btn-sm btn-pink delete-kos' href="<?= BASE_URL('kos/delete?id='.$kos_item->id_kos) ?>"><span class="fa fa-trash"></span> delete</a>
 						</td>
 					</tr>
 				<?php $i++; } }?>

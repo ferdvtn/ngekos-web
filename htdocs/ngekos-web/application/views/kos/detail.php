@@ -54,7 +54,7 @@
 				<div class="swiper-wrapper">
 					<?php if (!empty($kos->title)) { ?>
 						<?php foreach ($kos->title as $img) { ?>
-								<img class='swiper-slide' src="<?= BASE_URL("assets/img/kos/$kos->id/$img") ?>" alt="<?= $img ?>">
+								<img class='swiper-slide' src="<?= BASE_URL("assets/img/kos/$kos->id_kos/$img") ?>" alt="<?= $img ?>">
 						<?php } ?>
 					<?php } else { ?>
 						<div class="swiper-slide"><img src="<?= BASE_URL("assets/img/no-photo.png") ?>" alt="<?= 'no-photo-available' ?>"></div>
@@ -105,21 +105,21 @@
 						<p class='detail-no-hp mb-0'><?= $kos->no_handphone ?></p>
 					</span>
 				</div>
-				<p class="kamar"><span class='fas fa-bed'></span> Tersisa <?= $this->lib_kos->hitungsisa($kos->id, $kos->pintu) ?>	 kamar</p>
+				<p class="kamar"><span class='fas fa-bed'></span> Tersisa <?= $this->lib_kos->hitungsisa($kos->id_kos, $kos->pintu) ?>	 kamar</p>
 				<p class="float-left">Per bulan :</p>
 				<p class='text-right mb-0'>
 					<b class='detail-harga'>Rp.<?= number_format($kos->harga) ?></b>
 				</p>
 			</div>
 			<div class="side-detail shadow-sm rounded-lg mb-3">
-				<?php if ($this->session->userdata('id') != null) {
-					if ($kos->id_pemilik === $this->session->userdata('id')) { ?>
+				<?php if ($this->session->userdata('id_user') != null) {
+					if ($kos->id_user === $this->session->userdata('id_user')) { ?>
 						<div class="form-row">
 							<div class="col-6">
-								<a class='detail-btn-1 form-control' href="<?= base_url("kos/update?id=$kos->id") ?>">Perbarui</a>
+								<a class='detail-btn-1 form-control' href="<?= base_url("kos/update?id=$kos->id_kos") ?>">Perbarui</a>
 							</div>
 							<div class="col-6">
-								<a id="hapus-kos" class='detail-btn-2 form-control' href="<?= base_url("kos/delete?id=$kos->id") ?>">Hapus</a>
+								<a id="hapus-kos" class='detail-btn-2 form-control' href="<?= base_url("kos/delete?id=$kos->id_kos") ?>">Hapus</a>
 							</div>
 						</div>
 					<?php } else { ?>
@@ -127,7 +127,7 @@
 							<div class="col-6">
 								<button id="kontak-pemilik" class="detail-btn-1 form-control" data-kontak='<?= json_encode($kos) ?>'>Kontak Pemilik</button>
 							</div>
-							<?php if ($this->lib_kos->hitungsisa($kos->id, $kos->pintu) > 0) { ?>
+							<?php if ($this->lib_kos->hitungsisa($kos->id_kos, $kos->pintu) > 0) { ?>
 								<div class="col-6">
 									<button class="detail-btn-2 form-control ajukan">Booking</button>
 								</div>
@@ -189,8 +189,8 @@
 		<hr>
 		<?php
 		$hidden = [
-			'id' => $kos->id,
-			'id_pemilik' => $kos->id_pemilik
+			'id_kos' => $kos->id_kos,
+			'id_user' => $kos->id_user
 		];
 		?>
 		<?= form_open(base_url("kos/pengajuan"), '', $hidden) ?>
@@ -216,11 +216,11 @@
 		<?php if (!empty($kos_terbaru)) { ?>
 			<?php foreach ($kos_terbaru as $kos) { ?>
 				<div class="col-md-3 col-6 kos-item mb-5 p-1">
-					<a class="text-decoration-none" style="color: rgba(0,0,0,.65);" href="<?= BASE_URL("/kos/d/$kos->id") ?>">
+					<a class="text-decoration-none" style="color: rgba(0,0,0,.65);" href="<?= BASE_URL("/kos/d/$kos->id_kos") ?>">
 						<div class="bg-white overflow-hidden p-2">
 							<div>
 							<?php if (!empty($kos->title)) { ?>
-								<img  src="<?= BASE_URL("assets/img/kos/$kos->id/") . $kos->title[0] ?>" alt="tampilan rumah" class='thumbnail'>
+								<img  src="<?= BASE_URL("assets/img/kos/$kos->id_kos/") . $kos->title[0] ?>" alt="tampilan rumah" class='thumbnail'>
 							<?php } else {?>
 								<img  src="<?= BASE_URL('assets/img/home-default.jpg') ?>" alt="tampilan rumah" class='thumbnail'>
 							<?php } ?>

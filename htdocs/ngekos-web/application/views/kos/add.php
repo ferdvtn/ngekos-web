@@ -53,7 +53,7 @@
 		<?php
 		  $attr = ['class' => 'px-4 py-3 border rounded shadow bg-white', 'style' => 'max-width: 700px'];
 		  $hidden = [
-			  'id_pemilik' => $user['id'],
+			  'id_user' => $user['id_user'],
 			  'lat' => set_value('lat'),
 			  'lng' => set_value('lng'),
 			];

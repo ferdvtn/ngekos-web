@@ -14,7 +14,7 @@ class Kos_model extends MY_Model{
         if ($id==null) {
 			$this->db->select('kos.*, user.nama as pemilik, user.no_handphone, user.alamat as alamat_pemilik');
 			$this->db->from('kos');
-			$this->db->join('user', 'user.id = kos.id_pemilik');
+			$this->db->join('user', 'user.id_user = kos.id_user');
 			$this->db->order_by('updated_at', 'DESC');
 			if (!empty($limit)) {
 				$this->db->limit($limit);
@@ -26,14 +26,14 @@ class Kos_model extends MY_Model{
 
 				// mengambil gambar dari kos
 				$this->db->select('*');
-				$this->db->from('kos_images');
+				$this->db->from('images');
 				$data_images = $this->db->get();
 				if ($data_images->num_rows() > 0) {
 					$data_images = $data_images->result();
 					foreach ($data as $idx => $val_d) {
 						$data[$idx]->title = [];
 						foreach ($data_images as $di) {
-							if ($val_d->id == $di->id_kos) {
+							if ($val_d->id_kos == $di->id_kos) {
 								$data[$idx]->title[] = $di->title;
 							}
 						}
@@ -44,7 +44,7 @@ class Kos_model extends MY_Model{
         } else {
             $this->db->select('*');
 			$this->db->from('kos');
-			$this->db->where('id_pemilik', $id);
+			$this->db->where('id_user', $id);
 			$this->db->order_by('updated_at', 'DESC');
 			$data = $this->db->get();
 			if ($data->num_rows() > 0) {
@@ -61,11 +61,11 @@ class Kos_model extends MY_Model{
 	 */
 	public function getPenyewa($id)
 	{
-		$this->db->select('kos.*, tersewa.id_penyewa AS id_penyewa, tersewa.id AS id_tersewa, user.nama as nama_penyewa');
+		$this->db->select('kos.*, kostersewa.id_user AS id_user, kostersewa.id_kostersewa AS id_kostersewa, user.nama as nama_penyewa');
 		$this->db->from('kos');
-		$this->db->where('id_pemilik', $id);
-		$this->db->join('tersewa', 'tersewa.id_kos = kos.id');
-		$this->db->join('user', 'user.id = tersewa.id_penyewa');
+		$this->db->where('kos.id_user', $id);
+		$this->db->join('kostersewa', 'kostersewa.id_kos = kos.id_kos');
+		$this->db->join('user', 'user.id_user = kostersewa.id_user');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			$data = $data->result();
@@ -81,14 +81,14 @@ class Kos_model extends MY_Model{
         // mengambil data kosan milik sendiri
         $this->db->select('*');
         $this->db->from('kos');
-        $this->db->where('id_pemilik', $id);
+        $this->db->where('id_user', $id);
         $data = $this->db->get()->result();
         // mengambil jumlah data penyewa per pintu
         $dataFinal = [];
         foreach ($data as $data) {
             $this->db->select('*');
-            $this->db->from('tersewa');
-            $this->db->where('id_kos', $data->id);
+            $this->db->from('kostersewa');
+            $this->db->where('id_kos', $data->id_kos);
             $dataFinal[] = $this->db->get()->result();
         }
         $hitung = 0;
@@ -98,7 +98,7 @@ class Kos_model extends MY_Model{
         return $hitung;
     }
 
-    public function search($q='', $adr='')
+    public function search($q=[], $adr=[])
     {
         $_q = [];
         foreach ($q as $val) {
@@ -114,7 +114,7 @@ class Kos_model extends MY_Model{
 
 		$this->db->select('kos.*, user.nama as pemilik, user.no_handphone, user.alamat as alamat_pemilik');
 		$this->db->from('kos AS kos');
-		$this->db->join('user', 'user.id = kos.id_pemilik');
+		$this->db->join('user', 'user.id_user = kos.id_user');
         if ($q !== '()') $this->db->where($q);
         if ($adr !== '()') $this->db->where($adr);
         $results = $this->db->get();
@@ -125,8 +125,8 @@ class Kos_model extends MY_Model{
     {
         $this->db->select('kos.*, user.nama as pemilik, user.no_handphone, user.alamat as alamat_pemilik');
         $this->db->from('kos');
-        $this->db->join('user', 'user.id = kos.id_pemilik');
-        $this->db->where('kos.id', $id);
+        $this->db->join('user', 'user.id_user = kos.id_user');
+        $this->db->where('kos.id_kos', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			$data = $data->first_row();
@@ -134,14 +134,14 @@ class Kos_model extends MY_Model{
 
 			// mengambil gambar dari kos
 			$this->db->select('*');
-			$this->db->from('kos_images');
+			$this->db->from('images');
 			$data_images = $this->db->get();
 			if ($data_images->num_rows() > 0) {
 				$data_images = $data_images->result();
 				$data->title = [];
 				foreach ($data_images as $di) {
-					if ($data->id == $di->id_kos) {
-						$data->title[$di->id] = $di->title;
+					if ($data->id_kos == $di->id_kos) {
+						$data->title[$di->id_images] = $di->title;
 					}
 				}
 			}
@@ -169,35 +169,35 @@ class Kos_model extends MY_Model{
     {
 		foreach ($images as $idx => $image) {
 			$new_images[$idx] = [
-				'id' => guid(),
+				'id_images' => guid(),
 				'id_kos' => $id_kos,
 				'title' => $image
 			];
 		}
-		$this->db->insert_batch('kos_images', $new_images);
+		$this->db->insert_batch('images', $new_images);
     }
 
-    public function update($rows)
+    public function update($rows, $keyname)
     {
-		return parent::update($rows);
+		return parent::update($rows, 'id_kos');
     }
 
-    public function delete($id)
+    public function delete($keyname, $id)
     {
-        parent::delete($id);
+        return parent::delete($keyname, $id);
 	}
 
 	public function delete_image($id_image)
 	{
 		$this->db->select('*');
-		$this->db->from('kos_images');
-		$this->db->where('id', $id_image);
+		$this->db->from('images');
+		$this->db->where('id_images', $id_image);
 		$result = $this->db->get();
 		if ($result->num_rows() > 0) {
 			$result = $result->first_row();
 			unlink(APPPATH . "../assets/img/kos/$result->id_kos/$result->title");
-			$this->db->where('id', $id_image);
-			$this->db->delete('kos_images');
+			$this->db->where('id_images', $id_image);
+			$this->db->delete('images');
 			return TRUE;
 		} else return FALSE;
 	}

@@ -53,7 +53,7 @@
 		<?php
 		  $attr = ['class' => 'px-4 py-3 border rounded shadow bg-white','style' => 'max-width: 700px'];
 		  $hidden = [
-			  'id' => $kos->id,
+			  'id_kos' => $kos->id_kos,
 			  'lat' => $kos->lat,
 			  'lng' => $kos->lng,
 			];
@@ -100,7 +100,7 @@
 				<div class="img-edit">
 				<?php foreach ($kos->title as $idx => $img) { ?>
 					<div class="image-edit-item">
-						<img src="<?= BASE_URL("assets/img/kos/$kos->id/$img") ?>" alt="<?= $img ?>">
+						<img src="<?= BASE_URL("assets/img/kos/$kos->id_kos/$img") ?>" alt="<?= $img ?>">
 						<a class='text-danger delete-images' href="<?= BASE_URL("kos/delete_images?id=$idx") ?>"><span class="far fa-times-circle"></span></a>
 					</div>
 				<?php } ?>
@@ -136,7 +136,7 @@
 			<input type="submit" class="btn btn-info shadow" name="submit" value="Process">
 		  </div>
 		  <hr>
-		  <small><a href=<?= BASE_URL("kos?id=$kos->id") ?>>Back</a></small>
+		  <small><a href=<?= BASE_URL("kos/d/$kos->id_kos") ?>>Back</a></small>
 		<?= form_close() ?>
 	  </div>
 	</div>

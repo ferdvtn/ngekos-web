@@ -9,7 +9,7 @@ class Auth extends MY_Controller
     {
         parent::__construct();
         $this->load->library(['form_validation', 'check_auth']);
-        $this->load->model('user_model');
+		$this->load->model('user_model');
     }
 
     public function index() # LOGIN
@@ -39,12 +39,12 @@ class Auth extends MY_Controller
                 if (password_verify($dataUser['password'], $getUser['password']))
                 {
                     $this->session->set_userdata([
-                        'id' => $getUser['id'],
+                        'id_user' => $getUser['id_user'],
                     ]);
                     if (!empty($this->session->userdata('kos'))) {
                         $kos = $this->session->userdata('kos');
                         unset($_SESSION['kos']);
-                        redirect("kos?id=$kos");
+                        redirect("kos/d/$kos");
                     } else{
                         redirect('main');
                     }
@@ -79,8 +79,8 @@ class Auth extends MY_Controller
         else
         {
             $data = [
-				'id' => guid(),
-                'nama' => ucfirst(htmlspecialchars($this->input->post('name'))),
+				'id_user' => guid(),
+                'nama' => ucfirst(htmlspecialchars(trim($this->input->post('name')))),
                 'email'=> $this->input->post('email'),
                 'no_handphone'=> $this->input->post('no_handphone'),
                 'password'=> password_hash($this->input->post('password'), PASSWORD_DEFAULT)
@@ -94,7 +94,7 @@ class Auth extends MY_Controller
     public function change_password()
     {
         $this->check_auth->is_logged_in();
-        $id = $this->session->userdata('id');
+        $id = $this->session->userdata('id_user');
         $this->data['user'] = $this->user_model->get_by_id($id);
         $this->data['title'] = "Change Password";
         // VALIDASI
@@ -123,7 +123,7 @@ class Auth extends MY_Controller
 
     public function logout()
     {
-        $this->session->unset_userdata(['id', 'email']);
+        $this->session->unset_userdata(['id_user', 'email']);
         redirect('Auth');
     }
 }

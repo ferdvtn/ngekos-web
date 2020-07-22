@@ -25,7 +25,6 @@ class MY_Model extends CI_Model {
     protected function insert($rows)
     {
 		if (array_key_exists('submit', $rows)) { unset($rows['submit']); }
-		if (!isset($rows['id'])) { $rows['id'] = guid(); }
 
 		$rows['created_at'] = date("Y-m-d H:i:s");
 		$rows['updated_at'] = date("Y-m-d H:i:s");
@@ -33,26 +32,25 @@ class MY_Model extends CI_Model {
 
 		$this->db->insert($this->table_name, $rows);
 
-		return $rows['id'];
+		return true;
 	}
 
-    protected function update($rows)
+    protected function update($rows, $keyname)
     {
         if (array_key_exists('submit', $rows)) unset($rows['submit']);
-		$this->db->where('id', $rows['id']);
-		$id = $rows['id'];
+		$this->db->where($keyname, $rows[$keyname]);
 		if (array_key_exists('id', $rows)) unset($rows['id']);
 		$rows['updated_at'] = date("Y-m-d H:i:s");
 
 		$this->db->update($this->table_name, $rows);
 
-		return $id;
+		return $rows[$keyname];
 
     }
 
-    protected function delete($id)
+    protected function delete($keyname, $id)
     {
-        $this->db->where('id', $id);
+        $this->db->where($keyname, $id);
         $this->db->delete($this->table_name);
     }
 }

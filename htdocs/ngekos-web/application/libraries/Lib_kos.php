@@ -17,7 +17,7 @@ class Lib_kos {
      */
     public function getKos()
     {
-        $idUser = $this->CI->session->userdata('id');
+        $idUser = $this->CI->session->userdata('id_user');
         $data = $this->CI->kos_model->get($idUser);
 		$pintu = 0;
 		if (!empty($data)) {
@@ -25,8 +25,8 @@ class Lib_kos {
 				$temp = (int)$kos->pintu;
 				$pintu = $pintu + $temp;
 			}
-			return $pintu;
 		}
+		return $pintu;
     }
 
     /**
@@ -35,7 +35,7 @@ class Lib_kos {
     public function getTersewa()
     {
 
-        $idUser = $this->CI->session->userdata('id');
+        $idUser = $this->CI->session->userdata('id_user');
         $tersewa = $this->CI->kos_model->getTersewa($idUser);
         return $tersewa;
     }
@@ -45,10 +45,11 @@ class Lib_kos {
      */
     public function getTersisa()
     {
-        $idUser = $this->CI->session->userdata('id');
+        $idUser = $this->CI->session->userdata('id_user');
         $tersewa = $this->CI->kos_model->getTersewa($idUser);
-        $sisaKosan = $this->getKos() - $tersewa;
-        return $sisaKosan;
+		$sisaKosan = $this->getKos() - $tersewa;
+
+		return $sisaKosan;
     }
 
     /**
@@ -56,7 +57,7 @@ class Lib_kos {
      */
     public function hitungsisa($idKos, $kosPintuPerItem)
     {
-        // $idUser = $this->CI->session->userdata('id');
+        // $idUser = $this->CI->session->userdata('id_user');
         $tersisaPerItem = $this->CI->tersewa_model->getTotalTersewa($idKos);
         $sisa = $kosPintuPerItem - $tersisaPerItem;
         return $sisa;
@@ -68,8 +69,8 @@ class Lib_kos {
     public function ownershipCheck($id_kos, $id_pemilik)
     {
         $detail = [
-            'id' => $id_kos,
-            'id_pemilik' => $id_pemilik
+            'id_kos' => $id_kos,
+            'id_user' => $id_pemilik
         ];
         $this->CI->db->select('*');
         $this->CI->db->from('kos');
@@ -93,7 +94,7 @@ class Lib_kos {
 
 		/** cek total images yg udah ada di database */
 		$this->CI->db->select('*');
-		$this->CI->db->from('kos_images');
+		$this->CI->db->from('images');
 		$this->CI->db->where('id_kos', $id_kos);
 		$result = $this->CI->db->get();
 		$total_in_db = $result->num_rows();
@@ -115,6 +116,8 @@ class Lib_kos {
 				$_FILES['img_kos']['size'] = $images['size'][$i];
 				if ($this->CI->upload->do_upload('img_kos')) {
 					$images_name[] = $this->CI->upload->data('file_name');
+				} else {
+					$error = array('error' => $this->upload->display_errors());
 				}
 			}
 			if (!empty($images_name)) {

@@ -52,9 +52,9 @@
         $('.popup-notif-content>h1').text(data.pengaju);
         $('.popup-notif-content>b').text(data.no_pengaju);
         $('.popup-notif-content>.ket').text('"'+data.keterangan+'"');
-        $('[name=id]').val(data.id);
-        $('[name=id_pemilik]').val(data.id_pemilik);
-        $('[name=id_penyewa]').val(data.id_pengaju);
+        $('[name=id]').val(data.id_pengajuan);
+        $('[name=id_pemilik]').val(data.id_user_pemilik);
+        $('[name=id_penyewa]').val(data.id_user_pengaju);
         $('[name=id_kos]').val(data.id_kos);
         $('[name=penghuni]').val(data.penghuni);
 		$('[name=keterangan]').val(data.keterangan);

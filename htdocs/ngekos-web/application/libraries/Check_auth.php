@@ -13,7 +13,7 @@ class Check_auth {
 
     public function is_logged_in()
     {
-        if ($this->CI->session->has_userdata('id') === TRUE) # jika sudah login
+        if ($this->CI->session->has_userdata('id_user') === TRUE) # jika sudah login
         {
             return True;
         }
@@ -26,13 +26,13 @@ class Check_auth {
 
     public function is_not_logged_in()
     {
-        if ($this->CI->session->has_userdata('id') === FALSE) # jika belum login
+        if ($this->CI->session->has_userdata('id_user') === FALSE) # jika belum login
         {
             return True;
         }
         else
         {
-            redirect('home');
+            redirect('main');
         }
     }
 }

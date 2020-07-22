@@ -17,9 +17,9 @@ class Lib_pengajuan {
     public function submissionCheckIsExists($id_kos, $id_pengaju)
     {
         $detail = [
-            'id_pengaju' => $id_pengaju,
+            'id_user_pengaju' => $id_pengaju,
             'id_kos' => $id_kos
-        ];
+		];
         $this->CI->db->select('*');
         $this->CI->db->from('pengajuan');
         $this->CI->db->where($detail);
@@ -35,9 +35,9 @@ class Lib_pengajuan {
 
         if (!empty($results)) {
             foreach ($results as $result) {
-                if ($result->id_pemilik == $this->CI->session->userdata('id')) {
+                if ($result->id_user_pemilik == $this->CI->session->userdata('id_user')) {
                     foreach ($status_pengajuan as $sp) {
-                        if ($result->id == $sp->id_pengajuan) {
+                        if ($result->id_pengajuan == $sp->id_pengajuan) {
                             if ($sp->status == 1) {
                                 $result->status = 'disetujui';
                             } else if ($sp->status == 0) {
