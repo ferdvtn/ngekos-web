@@ -140,7 +140,7 @@
 					<?php }
 					} else {
 						$idkos = !empty($this->input->get('id')) ? $this->input->get('id') : null; ?>
-						<a class='detail-btn-1 form-control text-decoration-none' href="<?= BASE_URL("login?kos=$idkos") ?>">Login Untuk Booking</a>
+						<a class='detail-btn-1 form-control text-decoration-none' href="<?= BASE_URL("login?kos=".$kos->id_kos) ?>">Login Untuk Booking</a>
 				<?php } ?>
 				<hr>
 				<i>"Pastikan kamu telah membaca deskripsi & fasilitas kos ini"</i>
