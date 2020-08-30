@@ -89,7 +89,7 @@ class Lib_kos {
 		$config = array();
 		$config['upload_path'] = $path;
 		$config['allowed_types'] = 'jpg|png|jpeg';
-		$config['max_size']      = '200000';
+		// $config['max_size']      = '12000000';
 		$config['overwrite']     = FALSE;
 
 		/** cek total images yg udah ada di database */
@@ -117,7 +117,7 @@ class Lib_kos {
 				if ($this->CI->upload->do_upload('img_kos')) {
 					$images_name[] = $this->CI->upload->data('file_name');
 				} else {
-					$error = array('error' => $this->upload->display_errors());
+					$error = array('error' => $this->CI->upload->display_errors());
 				}
 			}
 			if (!empty($images_name)) {
