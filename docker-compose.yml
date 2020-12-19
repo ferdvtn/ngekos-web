@@ -15,7 +15,7 @@ services:
     volumes:
       - 'mariadb_volume:/var/lib/mysql'
     environment:
-      - MYSQL_USER=root
+      - MYSQL_USER=development
       - MYSQL_PASSWORD=123456
       - MYSQL_ROOT_PASSWORD=123456
     ports:

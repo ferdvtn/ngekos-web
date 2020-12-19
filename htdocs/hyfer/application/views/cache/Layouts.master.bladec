@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <base rel="canonical" href="<?php  echo $this->getBaseUrl() ;?>" />
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <link href="<?php echo  (isset($this->assetDict[('public/bootstrap-4.4.1/dist/css/bootstrap.min.css')]))?$this->assetDict[('public/bootstrap-4.4.1/dist/css/bootstrap.min.css')]:$this->baseUrl.'/'.('public/bootstrap-4.4.1/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
+ <title>hyFer</title>
+</head>
+<body>
+ <?php echo $this->yieldContent('content'); ?>
+ <script src="<?php echo  (isset($this->assetDict[('public/js/jquery-3.5.1.min.js')]))?$this->assetDict[('public/js/jquery-3.5.1.min.js')]:$this->baseUrl.'/'.('public/js/jquery-3.5.1.min.js'); ?>"></script>
+ <script src="<?php echo  (isset($this->assetDict[('public/bootstrap-4.4.1/dist/js/bootstrap.min.js')]))?$this->assetDict[('public/bootstrap-4.4.1/dist/js/bootstrap.min.js')]:$this->baseUrl.'/'.('public/bootstrap-4.4.1/dist/js/bootstrap.min.js'); ?>"></script>
+</body>
+</html>
